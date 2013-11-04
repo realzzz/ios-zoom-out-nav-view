@@ -80,6 +80,45 @@
     
 }
 
+- (void) zoomInBack:(CGRect)origRect byScale:(CGFloat)scale
+{
+    if (inTrans) {
+        return;
+    }
+    else{
+        inTrans = YES;
+    }
+    // first calculate the max scale
+    CGFloat selfWidth = self.frame.size.width;
+    CGFloat selfHeight = self.frame.size.height;
+    
+    CGFloat finalScale = scale;
+    if (scale == 0.0) {
+        CGFloat wScale = selfWidth/origRect.size.width;
+        CGFloat hScale = selfHeight/origRect.size.height;
+        finalScale = MAX(wScale, hScale);
+    }
+    
+    UIImage * currentBg = [self captureCurrentBGimg];
+    if (zoomBg == nil) {
+        zoomBg = [[UIImageView alloc]init];
+        zoomBg.alpha = 1.0;
+        [self addSubview:zoomBg];
+    }
+    zoomBg.frame = CGRectMake(-origRect.origin.x * (finalScale-1), -origRect.origin.y * (finalScale -1), selfWidth * finalScale, selfHeight * finalScale);
+    
+    [zoomBg setImage:currentBg];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        zoomBg.frame = CGRectMake(0, 0, selfWidth, selfHeight);
+        //zoomBg.alpha = 0.0;
+    } completion:^(BOOL finished) {
+        [zoomBg removeFromSuperview];
+        zoomBg = nil;
+        inTrans = NO;
+    }];
+}
+
 - (UIImage *)captureCurrentBGimg
 {
     CGRect selfF = self.frame;

@@ -9,6 +9,9 @@
 #import "zoomInOutNavViewController.h"
 
 @interface zoomInOutNavViewController ()
+{
+    CGRect lastZoomRect;
+}
 
 @end
 
@@ -45,6 +48,7 @@
     [tmpView addSubview:backBtn];
     [backBtn addTarget:self action:@selector(onBack) forControlEvents:UIControlEventTouchUpInside];
     
+    lastZoomRect = btn.frame;
     [testView addSubview:tmpView fromRect:btn.frame byScale:3];
 }
 
@@ -52,6 +56,8 @@
 {
     [tmpView removeFromSuperview];
     tmpView = nil;
+    
+    [testView zoomInBack:lastZoomRect byScale:3];
 }
 
 - (void)didReceiveMemoryWarning

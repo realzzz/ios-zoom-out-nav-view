@@ -12,4 +12,6 @@
 
 
 - (void) addSubview:(UIView *)view fromRect:(CGRect)origRect byScale:(CGFloat)scale;
+
+- (void) zoomInBack:(CGRect)origRect byScale:(CGFloat)scale;
 @end
