@@ -21,6 +21,11 @@ Usage:
   OrigRect is the rect on screen that is going to zoom out
   scale is the target scale size for parent view.
   
+4. For parent view, use 
+  - (void) zoomInBack:(CGRect)origRect byScale:(CGFloat)scale;
+  to Zoom in back after subview is removed.  
+
+  
 
 Note: 
 Work with ARC support.
