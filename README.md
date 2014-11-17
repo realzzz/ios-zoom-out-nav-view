@@ -31,5 +31,6 @@ Note:
 Work with ARC support.
 
 
+License: MIT. 
 
 
